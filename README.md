@@ -215,7 +215,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>IIT Guwahati, Debugs autograd for fun, ships before sunrise.</sub>
         <br />
-        <sub>Issues: 18 &middot; PRs: 198</sub>
+        <sub>Issues: 18 &middot; PRs: 199</sub>
       </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/maanas1234"><img src="https://avatars.githubusercontent.com/maanas1234?v=4" class="contributor-avatar" width="80px;" alt="maanas1234"/></a>
@@ -226,7 +226,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>Catches bugs, builds solutions and ships products</sub>
         <br />
-        <sub>Issues: 14 &middot; PRs: 34</sub>
+        <sub>Issues: 14 &middot; PRs: 35</sub>
       </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/aadityansha06"><img src="https://avatars.githubusercontent.com/aadityansha06?v=4" class="contributor-avatar" width="80px;" alt="Aadityansha"/></a>
@@ -237,7 +237,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>Reducing CPU stalls, one commit at a time.</sub>
         <br />
-        <sub>Issues: 1 &middot; PRs: 14</sub>
+        <sub>Issues: 1 &middot; PRs: 15</sub>
       </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/ShivtejG236"><img src="https://avatars.githubusercontent.com/ShivtejG236?v=4" class="contributor-avatar" width="80px;" alt="Shivtej Gaikwad"/></a>
@@ -248,7 +248,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>IIT Guwahati. Shows up, ships, moves on to the next thing.</sub>
         <br />
-        <sub>Issues: 0 &middot; PRs: 22</sub>
+        <sub>Issues: 6 &middot; PRs: 24</sub>
       </td>
     </tr>
   </tbody>
