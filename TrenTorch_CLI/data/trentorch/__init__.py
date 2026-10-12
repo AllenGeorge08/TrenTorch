@@ -6,21 +6,39 @@ Imports are optional - only available after completing each module.
 """
 
 from pathlib import Path as _Path
+from importlib import metadata as _metadata
+import re as _re
 from .core.platform import setup_platform_runtime, PlatformDetector
 
 # Initialize platform hooks automatically on import
 ACTIVE_PLATFORM = setup_platform_runtime()
 
 def _get_version() -> str:
+    """Return the version from project metadata in both source and wheels.
+
+    In a source checkout, ``pyproject.toml`` is found by walking upward from
+    this package. In an installed wheel, project files are not included, so
+    the version is read from the wheel's standard package metadata instead.
+    """
+    version_pattern = _re.compile(r"^\s*version\s*=\s*[\"']([^\"']+)[\"']\s*$")
+
     try:
-        pyproject_path = _Path(__file__).parent.parent / "pyproject.toml"
-        if pyproject_path.exists():
-            content = pyproject_path.read_text()
-            for line in content.splitlines():
-                if line.strip().startswith("version"):
-                    return line.split("=")[1].strip().strip('"').strip("'")
-    except Exception:
+        for parent in (_Path(__file__).resolve().parent, *_Path(__file__).resolve().parents):
+            pyproject_path = parent / "pyproject.toml"
+            if not pyproject_path.is_file():
+                continue
+            for line in pyproject_path.read_text(encoding="utf-8").splitlines():
+                match = version_pattern.match(line)
+                if match:
+                    return match.group(1)
+    except (OSError, UnicodeError):
         pass
+
+    try:
+        return _metadata.version("trentorch")
+    except _metadata.PackageNotFoundError:
+        pass
+
     return "0.1.0"
 
 __version__ = _get_version()
