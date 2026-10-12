@@ -55,6 +55,8 @@ class TestCommandExecution:
         # Should show welcome message
         assert "Welcome to Tren" in result.stdout or "TORCH" in result.stdout
         assert "Command Groups:" in result.stdout or "Quick Start:" in result.stdout
+        assert "github.com/TrenTorch/TrenTorch/issues" in result.stdout
+        assert "github.com/harvard-edge/cs249r_book/discussions" not in result.stdout
 
     def test_bare_tren_routes_to_tui_after_first_run(self, monkeypatch):
         """Bare `tren` (no command, no flags) should launch the TUI

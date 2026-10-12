@@ -217,7 +217,7 @@ The best way to learn:
      [{Theme.DIM}](reset with: tren module reset)[/{Theme.DIM}]
 
 [{Theme.WARNING}]🐛 PRE-RELEASE:[/{Theme.WARNING}] We're looking for bugs and feedback!
-   Found something? → [{Theme.INFO}]github.com/harvard-edge/cs249r_book/discussions[/{Theme.INFO}]"""
+   Found something? → [{Theme.INFO}]github.com/TrenTorch/TrenTorch/issues[/{Theme.INFO}]"""
 
         self.console.print()
         self.console.print(
