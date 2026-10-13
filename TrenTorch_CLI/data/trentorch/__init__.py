@@ -5,39 +5,58 @@ Students progressively build this package module by module.
 Imports are optional - only available after completing each module.
 """
 
-from pathlib import Path as _Path
-from importlib import metadata as _metadata
 import re as _re
-from .core.platform import setup_platform_runtime, PlatformDetector
+from importlib import metadata as _metadata
+from pathlib import Path as _Path
+
+from .core.platform import PlatformDetector, setup_platform_runtime
 
 # Initialize platform hooks automatically on import
 ACTIVE_PLATFORM = setup_platform_runtime()
 
-def _get_version() -> str:
-    """Return the version from project metadata in both source and wheels.
-
-    In a source checkout, ``pyproject.toml`` is found by walking upward from
-    this package. In an installed wheel, project files are not included, so
-    the version is read from the wheel's standard package metadata instead.
-    """
+def _read_project_version(pyproject_path: _Path) -> str | None:
+    """Read the version only from a matching ``[project]`` table."""
+    name_pattern = _re.compile(r"^\s*name\s*=\s*[\"']([^\"']+)[\"']\s*$")
     version_pattern = _re.compile(r"^\s*version\s*=\s*[\"']([^\"']+)[\"']\s*$")
+    in_project_table = False
+    project_name = None
+    project_version = None
 
     try:
-        for parent in (_Path(__file__).resolve().parent, *_Path(__file__).resolve().parents):
-            pyproject_path = parent / "pyproject.toml"
-            if not pyproject_path.is_file():
+        for line in pyproject_path.read_text(encoding="utf-8").splitlines():
+            stripped = line.strip()
+            if stripped.startswith("[") and stripped.endswith("]"):
+                in_project_table = stripped == "[project]"
                 continue
-            for line in pyproject_path.read_text(encoding="utf-8").splitlines():
-                match = version_pattern.match(line)
-                if match:
-                    return match.group(1)
+            if not in_project_table:
+                continue
+            name_match = name_pattern.match(line)
+            if name_match:
+                project_name = name_match.group(1)
+                continue
+            version_match = version_pattern.match(line)
+            if version_match:
+                project_version = version_match.group(1)
     except (OSError, UnicodeError):
-        pass
+        return None
 
+    if project_name == "trentorch":
+        return project_version
+    return None
+
+
+def _get_version() -> str:
+    """Return the version from installed metadata or a source checkout."""
     try:
         return _metadata.version("trentorch")
     except _metadata.PackageNotFoundError:
         pass
+
+    package_path = _Path(__file__).resolve()
+    for parent in (package_path.parent, *package_path.parents):
+        version = _read_project_version(parent / "pyproject.toml")
+        if version is not None:
+            return version
 
     return "0.1.0"
 
