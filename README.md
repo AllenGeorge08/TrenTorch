@@ -248,7 +248,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>IIT Guwahati. Shows up, ships, moves on to the next thing.</sub>
         <br />
-        <sub>Issues: 6 &middot; PRs: 25</sub>
+        <sub>Issues: 6 &middot; PRs: 26</sub>
       </td>
     </tr>
   </tbody>
@@ -311,7 +311,7 @@ Everyone else who has had a PR merged, or is credited as a `Co-authored-by:` on 
         <br />
         <sub>Spots bugs, corrects them and contributes</sub>
         <br />
-        <sub>Issues: 0 &middot; PRs: 1</sub>
+        <sub>Issues: 0 &middot; PRs: 2</sub>
       </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/lux-liang"><img src="https://avatars.githubusercontent.com/lux-liang?v=4" class="contributor-avatar" width="80px;" alt="lux-liang"/></a>
