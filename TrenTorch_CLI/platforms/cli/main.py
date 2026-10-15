@@ -13,6 +13,7 @@ import argparse
 import logging
 import os
 import sys
+
 # Windows opens stdout/stderr with the console's legacy codepage (e.g. cp1252),
 # not UTF-8, so emoji output crashes with UnicodeEncodeError unless the
 # already-open streams are reconfigured directly (setting PYTHONIOENCODING
@@ -316,8 +317,8 @@ The best way to learn:
 
     def _show_help(self) -> int:
         """Show custom Rich-formatted help."""
-        from rich.table import Table
         from rich.markup import escape
+        from rich.table import Table
 
         # Show ASCII logo
         print_ascii_logo()
@@ -359,7 +360,7 @@ The best way to learn:
                 f"  [{Theme.OPTION}]{escape(flags)}[/{Theme.OPTION}]{pad}{escape(action.help or '')}"
             )
         self.console.print()
-      
+
         return 0
 
     def _check_invalid_command(self, args: list[str] | None) -> int | None:

@@ -10,9 +10,11 @@ This test suite ensures:
 import subprocess
 import sys
 from pathlib import Path
-from platforms.cli.main import TrenTorchCLI
-from rich.console import Console
+
 import pytest
+from rich.console import Console
+
+from platforms.cli.main import TrenTorchCLI
 
 # Add tren to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
@@ -202,7 +204,7 @@ class TestCommandExecution:
             f"Command '{command} {subcommand} -h' crashed with exit code {result.returncode}"
         )
 
-     
+
     @pytest.fixture
     def cli_with_new_flag(self,monkeypatch):
         """A CLI whose parser has one extra global flag, like a contributor just added it."""
@@ -238,7 +240,7 @@ class TestCommandExecution:
          assert "--dry-run" in cli_with_new_flag.create_parser().format_help()
 
 
-    
+
 
 
 class TestCommandGrouping:
