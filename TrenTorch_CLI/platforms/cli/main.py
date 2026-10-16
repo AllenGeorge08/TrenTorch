@@ -272,17 +272,20 @@ The best way to learn:
             description="Tren⚡️Torch CLI - Build ML systems from scratch",
             formatter_class=argparse.RawDescriptionHelpFormatter,
             epilog=self._generate_epilog(),
-            add_help=False
+            add_help=False,
         )
 
         # Global options
-        parser.add_argument("--help","-h",action="help",help="Show this help message and exit")
-        parser.add_argument("--version", action="version", version=f"Tren⚡️Torch v{__version__}",help="Show version number")
+        parser.add_argument("--help", "-h", action="help", help="Show this help message and exit")
+        parser.add_argument(
+            "--version", action="version", version=f"Tren⚡️Torch v{__version__}", help="Show version number"
+        )
         parser.add_argument("--verbose", "-v", action="store_true", help="Enable verbose output")
         parser.add_argument("--no-color", action="store_true", help="Disable colored output")
         parser.add_argument(
             "--tui", "-i", action="store_true", help="Launch interactive Textual TUI dashboard"
         )
+
         # Subcommands
         subparsers = parser.add_subparsers(dest="command", help="Available commands", metavar="COMMAND")
 

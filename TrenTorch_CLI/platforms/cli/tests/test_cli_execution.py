@@ -14,17 +14,14 @@ from pathlib import Path
 import pytest
 from rich.console import Console
 
-from platforms.cli.main import TrenTorchCLI
-
 # Add tren to path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent.parent))
 
-# from platforms.cli.main import TrenTorchCLI
+from platforms.cli.main import TrenTorchCLI
 from platforms.cli.tui.command import TUICommand
 
 
 class TestCommandExecution:
-    from platforms.cli.main import TrenTorchCLI
     """Test that all commands can be executed (smoke tests)."""
 
     def setup_method(self):
@@ -204,9 +201,8 @@ class TestCommandExecution:
             f"Command '{command} {subcommand} -h' crashed with exit code {result.returncode}"
         )
 
-
     @pytest.fixture
-    def cli_with_new_flag(self,monkeypatch):
+    def cli_with_new_flag(self, monkeypatch):
         """A CLI whose parser has one extra global flag, like a contributor just added it."""
         cli = TrenTorchCLI()
         original = cli.create_parser
@@ -220,27 +216,22 @@ class TestCommandExecution:
         monkeypatch.setattr(cli, "create_parser", patched)
         return cli
 
-    def test_new_flag_shows_in_rich_help(self,cli_with_new_flag):
-            cli = cli_with_new_flag
-            cli.console = Console(record=True, width=120)  # wide so nothing wraps
+    def test_new_flag_shows_in_rich_help(self, cli_with_new_flag):
+        cli = cli_with_new_flag
+        cli.console = Console(record=True, width=120)  # wide so nothing wraps
 
-            assert cli._show_help() == 0
-            out = cli.console.export_text()
+        assert cli._show_help() == 0
+        out = cli.console.export_text()
 
-            assert "--dry-run" in out
-            assert "Preview without changes" in out
+        assert "--dry-run" in out
+        assert "Preview without changes" in out
 
+    def test_new_flag_is_parsed(self, cli_with_new_flag):
+        ns = cli_with_new_flag.create_parser().parse_args(["--dry-run"])
+        assert ns.dry_run is True
 
-    def test_new_flag_is_parsed(self,cli_with_new_flag):
-            ns = cli_with_new_flag.create_parser().parse_args(["--dry-run"])
-            assert ns.dry_run is True
-
-
-    def test_new_flag_in_argparse_help(self,cli_with_new_flag):
-         assert "--dry-run" in cli_with_new_flag.create_parser().format_help()
-
-
-
+    def test_new_flag_in_argparse_help(self, cli_with_new_flag):
+        assert "--dry-run" in cli_with_new_flag.create_parser().format_help()
 
 
 class TestCommandGrouping:
