@@ -65,6 +65,12 @@ jobs:
         # router).
         run: |
           set -euo pipefail
+          # The Vercel project's Root Directory is TrenTorch_Web, and the CLI
+          # refuses to deploy unless <working dir>/TrenTorch_Web exists, even
+          # with --prebuilt. This job has no checkout (it must not touch PR
+          # code), so create an empty folder to satisfy that check. The built
+          # site stays in .vercel/output at the working directory root.
+          mkdir -p TrenTorch_Web
           mkdir -p .vercel/output
           mv build .vercel/output/static
           cp .vercel/output/static/404.html .vercel/output/static/app.html
