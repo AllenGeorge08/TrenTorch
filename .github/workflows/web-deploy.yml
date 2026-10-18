@@ -60,7 +60,13 @@ jobs:
         run: |
           if [ -z "$PUBLIC_SUPABASE_URL" ] || [ -z "$PUBLIC_SUPABASE_ANON_KEY" ]; then
             echo "::notice::PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY not set; building with fake values. Sign-in will not work."
+            # The unset repo variables arrive here as empty strings, and
+            # dotenv-cli never overrides a variable that already exists, even
+            # an empty one. Without this, the build gets an empty URL and the
+            # site shows "supabaseUrl is required" (a 500 page) in the browser.
+            unset PUBLIC_SUPABASE_URL PUBLIC_SUPABASE_ANON_KEY
             npx dotenv-cli -e .env.test -- npm run build
+            grep -rlq "ci-does-not-hit-this" build || { echo "::error::Fake Supabase values did not reach the build."; exit 1; }
           else
             npm run build
           fi
