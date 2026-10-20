@@ -30,7 +30,17 @@ jobs:
   autofix:
     # Fork PRs can't be pushed to by any token this repo holds -- lint.yml
     # still runs and fails normally for those, this job just skips.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    #
+    # The contributors bot's PRs (update-contributors-*) are skipped too.
+    # update-contributors.yml opens each one and merges it with
+    # --delete-branch within seconds, so by the time this job starts the
+    # branch is already gone and "Checkout PR head" fails. They only touch
+    # README.md, so there is nothing for ruff to fix. Same branch-prefix
+    # check update-contributors.yml uses to ignore its own PRs. The branch
+    # name is only read in this `if:` expression, never put in a shell.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !startsWith(github.event.pull_request.head.ref, 'update-contributors-')
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
