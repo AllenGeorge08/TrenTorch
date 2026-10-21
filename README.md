@@ -7,7 +7,7 @@
 **Learn ML by building it: a from-scratch machine learning framework in NumPy, and hundreds of coding questions that run in your browser.**
 
 [![CI](https://github.com/TrenTorch/TrenTorch/actions/workflows/validate.yml/badge.svg?branch=TrenTorch-Dev)](https://github.com/TrenTorch/TrenTorch/actions/workflows/validate.yml)
-[![Contributors](https://img.shields.io/badge/contributors-19-orange.svg)](#team-engineers)
+[![Contributors](https://img.shields.io/badge/contributors-20-orange.svg)](#team-engineers)
 [![CodeFactor A+](https://img.shields.io/badge/CodeFactor-A%2B-2ecc71?logo=codefactor&logoColor=white)](https://www.codefactor.io/repository/github/trentorch/trentorch)
 [![Python](https://img.shields.io/badge/python-3.10+-3776ab?logo=python&logoColor=white)](https://python.org)
 [![License](https://img.shields.io/badge/license-PolyForm--Noncommercial--1.0.0-blue.svg)](LICENSE)
@@ -248,7 +248,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>IIT Guwahati. Shows up, ships, moves on to the next thing.</sub>
         <br />
-        <sub>Issues: 6 &middot; PRs: 41</sub>
+        <sub>Issues: 6 &middot; PRs: 42</sub>
       </td>
     </tr>
   </tbody>
@@ -261,7 +261,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
 Everyone else who has had a PR merged, or is credited as a `Co-authored-by:` on one. Want to show up here? Get a PR merged, or get credited as a co-author on someone else's: the first-contribution bot will say hello on your first PR, and this grid updates automatically after it merges. A closed-without-merging PR doesn't count, and neither does an issue on its own.
 
 <details>
-<summary>Show all 15 contributors</summary>
+<summary>Show all 16 contributors</summary>
 
 <table width="100%" style="width:100%">
   <tbody>
@@ -380,6 +380,15 @@ Everyone else who has had a PR merged, or is credited as a `Co-authored-by:` on 
       </td>
     </tr>
     <tr>
+      <td align="center" valign="top" width="25.0%">
+        <a href="https://github.com/Saaarthak0102"><img src="https://avatars.githubusercontent.com/Saaarthak0102?v=4" class="contributor-avatar" width="80px;" alt="Saaarthak0102"/></a>
+        <br />
+        <b>Saaarthak0102</b>
+        <br />
+        <sub>Spots bugs, corrects them and contributes</sub>
+        <br />
+        <sub>Issues: 0 &middot; PRs: 1</sub>
+      </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/shivamraut747-ux"><img src="https://avatars.githubusercontent.com/shivamraut747-ux?v=4" class="contributor-avatar" width="80px;" alt="shivamraut747-ux"/></a>
         <br />
