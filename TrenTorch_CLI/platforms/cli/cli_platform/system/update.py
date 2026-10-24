@@ -1,12 +1,12 @@
 """
-TinyTorch Update Command
+TrenTorch Update Command
 
 Check for updates using GitHub API and perform in-place updates.
-Uses tinytorch-v* tags to determine latest version.
+Uses tren --version* tags to determine latest version.
 
 IMPORTANT: This command preserves student work during updates:
 - data/modules/     (student notebooks in progress)
-- tinytorch/core/   (student implementations)
+- data/trentorch/core/  (student implementations)
 - user_data/            (progress tracking)
 - .venv/            (virtual environment)
 """
@@ -24,39 +24,35 @@ from platforms.cli.commands.base import BaseCommand
 
 
 class UpdateCommand(BaseCommand):
-    """Check for and install TinyTorch updates."""
+    """Check for and install TrenTorch updates."""
 
-    REPO_URL = "https://github.com/harvard-edge/cs249r_book.git"
-    REPO = "harvard-edge/cs249r_book"
+    REPO_URL = "https://github.com/TrenTorch/TrenTorch.git"
+    REPO = "TrenTorch/TrenTorch"
     TAGS_API = f"https://api.github.com/repos/{REPO}/tags"
-    TAG_PREFIX = "tinytorch-v"
+    TAG_PREFIX = "v"
     BRANCH = "main"
-    SPARSE_PATH = "tinytorch"
+    SPARSE_PATH = "TrenTorch_CLI"
 
     # Directories/files to UPDATE (overwrite with new version)
     UPDATE_DIRS = [
         "data/src",  # Module source notebooks
-        "tito",  # CLI tool
+        "platforms/cli",  # CLI tool
         "tests",  # Test suites
         "data/milestones",  # Milestone scripts
         "data/datasets",  # Sample datasets
         "bin",  # Entry point scripts
     ]
-    UPDATE_FILES = ["requirements.txt", "pyproject.toml", "README.md", "LICENSE"]
+    UPDATE_FILES = ["requirements.txt", "pyproject.toml", "docs/README.md"]
 
     # Directories/files to PRESERVE (never overwrite)
     PRESERVE_DIRS = [
         "data/modules",  # Student work in progress
-        "data/solutions",  # Maintainer/CI-only reference notebooks
         ".venv",  # Virtual environment
         "user_data",  # Progress tracking
     ]
     PRESERVE_FILES = [
         "progress.json",  # Legacy progress file
     ]
-
-    # Special handling for tinytorch/ package
-    # We update __init__.py but preserve core/*.py (student implementations)
 
     @property
     def name(self) -> str:
@@ -202,8 +198,8 @@ class UpdateCommand(BaseCommand):
                 self.console.print(f"[red]Git clone failed: {result.stderr}[/red]")
                 return False
 
-            # Set sparse checkout to only get tinytorch/
-            self.console.print("[dim]  Fetching tinytorch files...[/dim]")
+            # Set sparse checkout to only get TrenTorch/TrenTorch_CLI
+            self.console.print("[dim]  Fetching trentorch files...[/dim]")
             result = subprocess.run(
                 ["git", "sparse-checkout", "set", self.SPARSE_PATH],
                 capture_output=True,
@@ -332,8 +328,8 @@ class UpdateCommand(BaseCommand):
                     success = False
 
             # Step 4: Special handling for tinytorch/ package
-            src_pkg = src_root / "tinytorch"
-            dst_pkg = project_root / "tinytorch"
+            src_pkg = src_root / "data" / "trentorch"
+            dst_pkg = project_root / "data" / "trentorch"
             if not self._update_tinytorch_package(src_pkg, dst_pkg):
                 success = False
 
@@ -344,7 +340,7 @@ class UpdateCommand(BaseCommand):
         from rich.panel import Panel
 
         self.console.print()
-        self.console.print("[bold]🔄 Tiny🔥Torch Update[/bold]")
+        self.console.print("[bold]🔄 Tren🔥Torch Update[/bold]")
         self.console.print()
 
         # Get current version
