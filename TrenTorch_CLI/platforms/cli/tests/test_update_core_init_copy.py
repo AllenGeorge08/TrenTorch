@@ -1,5 +1,5 @@
 """
-MC/DC coverage for UpdateCommand._update_tinytorch_package's core/
+MC/DC coverage for UpdateCommand._update_trentorch_package's core/
 __init__.py copy decision: src_core.exists() and dst_core.exists().
 """
 
@@ -21,7 +21,7 @@ def _update_package(tmp_path, *, src_core_exists, dst_core_exists):
         (dst_pkg / "core" / "__init__.py").write_text("# old version", encoding="utf-8")
 
     cmd = UpdateCommand(CLIConfig.from_project_root(tmp_path))
-    cmd._update_tinytorch_package(src_pkg, dst_pkg)
+    cmd._update_trentorch_package(src_pkg, dst_pkg)
     dst_init = dst_pkg / "core" / "__init__.py"
     return dst_init.read_text(encoding="utf-8") if dst_init.exists() else None
 
