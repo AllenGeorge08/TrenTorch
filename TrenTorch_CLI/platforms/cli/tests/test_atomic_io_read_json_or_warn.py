@@ -18,20 +18,32 @@ gone.
 """
 
 import json
+import os
 import subprocess
 import sys
 from io import StringIO
+from pathlib import Path
 
 from rich.console import Console
 
 from platforms.cli.core.atomic_io import read_json_or_warn
 from platforms.cli.core.state_schema import validate_milestones, validate_progress
 
+# TrenTorch_CLI/, the directory `platforms` is imported from.
+_CLI_ROOT = Path(__file__).resolve().parents[3]
+
 
 def _run_tren(args, cwd):
+    # The CLI runs from a temp project directory, so `platforms` has to be
+    # importable without relying on the package being installed.
+    env = {
+        **os.environ,
+        "PYTHONPATH": os.pathsep.join(filter(None, [str(_CLI_ROOT), os.environ.get("PYTHONPATH")])),
+    }
     result = subprocess.run(
         [sys.executable, "-m", "platforms.cli.main", *args],
         cwd=cwd,
+        env=env,
         capture_output=True,
         text=True,
         encoding="utf-8",
