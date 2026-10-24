@@ -248,7 +248,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>IIT Guwahati. Shows up, ships, moves on to the next thing.</sub>
         <br />
-        <sub>Issues: 6 &middot; PRs: 54</sub>
+        <sub>Issues: 6 &middot; PRs: 55</sub>
       </td>
     </tr>
   </tbody>
@@ -282,7 +282,7 @@ Everyone else who has had a PR merged, or is credited as a `Co-authored-by:` on 
         <br />
         <sub>Spots bugs, corrects them and contributes</sub>
         <br />
-        <sub>Issues: 1 &middot; PRs: 2</sub>
+        <sub>Issues: 2 &middot; PRs: 3</sub>
       </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/bernalalexis-try"><img src="https://avatars.githubusercontent.com/bernalalexis-try?v=4" class="contributor-avatar" width="80px;" alt="bernalalexis-try"/></a>
