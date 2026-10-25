@@ -1,12 +1,12 @@
 """
-TinyTorch Update Command
+TrenTorch Update Command
 
 Check for updates using GitHub API and perform in-place updates.
-Uses tinytorch-v* tags to determine latest version.
+Uses tren --version* tags to determine latest version.
 
 IMPORTANT: This command preserves student work during updates:
 - data/modules/     (student notebooks in progress)
-- tinytorch/core/   (student implementations)
+- data/trentorch/core/  (student implementations)
 - user_data/            (progress tracking)
 - .venv/            (virtual environment)
 """
@@ -24,25 +24,25 @@ from platforms.cli.commands.base import BaseCommand
 
 
 class UpdateCommand(BaseCommand):
-    """Check for and install TinyTorch updates."""
+    """Check for and install TrenTorch updates."""
 
-    REPO_URL = "https://github.com/harvard-edge/cs249r_book.git"
-    REPO = "harvard-edge/cs249r_book"
+    REPO_URL = "https://github.com/TrenTorch/TrenTorch.git"
+    REPO = "TrenTorch/TrenTorch"
     TAGS_API = f"https://api.github.com/repos/{REPO}/tags"
-    TAG_PREFIX = "tinytorch-v"
+    TAG_PREFIX = "v"
     BRANCH = "main"
-    SPARSE_PATH = "tinytorch"
+    SPARSE_PATH = "TrenTorch_CLI"
 
     # Directories/files to UPDATE (overwrite with new version)
     UPDATE_DIRS = [
         "data/src",  # Module source notebooks
-        "tito",  # CLI tool
+        "platforms/cli",  # CLI tool
         "tests",  # Test suites
         "data/milestones",  # Milestone scripts
         "data/datasets",  # Sample datasets
         "bin",  # Entry point scripts
     ]
-    UPDATE_FILES = ["requirements.txt", "pyproject.toml", "README.md", "LICENSE"]
+    UPDATE_FILES = ["requirements.txt", "pyproject.toml", "docs/README.md"]
 
     # Directories/files to PRESERVE (never overwrite)
     PRESERVE_DIRS = [
@@ -54,9 +54,6 @@ class UpdateCommand(BaseCommand):
     PRESERVE_FILES = [
         "progress.json",  # Legacy progress file
     ]
-
-    # Special handling for tinytorch/ package
-    # We update __init__.py but preserve core/*.py (student implementations)
 
     @property
     def name(self) -> str:
@@ -82,7 +79,7 @@ class UpdateCommand(BaseCommand):
 
     def _get_latest_version(self) -> tuple[str | None, str | None]:
         """
-        Fetch the latest tinytorch-v* tag from GitHub API.
+        Fetch the latest v* tag from GitHub API.
         Returns (version_string, tag_name) or (None, None) on error.
         Uses curl for reliability across platforms (avoids SSL issues).
         """
@@ -101,7 +98,7 @@ class UpdateCommand(BaseCommand):
 
             tags = json.loads(result.stdout)
 
-            # Find latest tinytorch-v* tag
+            # Find latest v* tag
             for tag in tags:
                 tag_name = tag.get("name", "")
                 if tag_name.startswith(self.TAG_PREFIX):
@@ -130,7 +127,7 @@ class UpdateCommand(BaseCommand):
             ctx.check_hostname = False
             ctx.verify_mode = ssl.CERT_NONE
 
-            req = urllib.request.Request(self.TAGS_API, headers={"User-Agent": "TinyTorch-CLI"})
+            req = urllib.request.Request(self.TAGS_API, headers={"User-Agent": "TrenTorch-CLI"})
 
             with urllib.request.urlopen(req, timeout=10, context=ctx) as response:
                 tags = json.loads(response.read().decode("utf-8"))
@@ -171,7 +168,7 @@ class UpdateCommand(BaseCommand):
 
     def _download_latest(self, temp_dir: Path) -> bool:
         """
-        Download latest TinyTorch to temp directory using git sparse checkout.
+        Download latest TrenTorch to temp directory using git sparse checkout.
         Returns True on success, False on failure.
         """
         try:
@@ -202,8 +199,8 @@ class UpdateCommand(BaseCommand):
                 self.console.print(f"[red]Git clone failed: {result.stderr}[/red]")
                 return False
 
-            # Set sparse checkout to only get tinytorch/
-            self.console.print("[dim]  Fetching tinytorch files...[/dim]")
+            # Set sparse checkout to only get TrenTorch/TrenTorch_CLI
+            self.console.print("[dim]  Fetching trentorch files...[/dim]")
             result = subprocess.run(
                 ["git", "sparse-checkout", "set", self.SPARSE_PATH],
                 capture_output=True,
@@ -251,9 +248,9 @@ class UpdateCommand(BaseCommand):
             self.console.print(f"[yellow]  ⚠ Could not update {name}: {e}[/yellow]")
             return False
 
-    def _update_tinytorch_package(self, src_pkg: Path, dst_pkg: Path) -> bool:
+    def _update_trentorch_package(self, src_pkg: Path, dst_pkg: Path) -> bool:
         """
-        Update tinytorch/ package while preserving student implementations in core/.
+        Update trentorch/ package while preserving student implementations in core/.
 
         Updates:
         - __init__.py (version info)
@@ -268,7 +265,7 @@ class UpdateCommand(BaseCommand):
             dst_init = dst_pkg / "__init__.py"
             if src_init.exists():
                 shutil.copy2(src_init, dst_init)
-                self.console.print("[dim]  ✓ Updated tinytorch/__init__.py[/dim]")
+                self.console.print("[dim]  ✓ Updated trentorch/__init__.py[/dim]")
 
             # Update core/__init__.py but NOT other .py files in core/
             src_core = src_pkg / "core"
@@ -278,11 +275,11 @@ class UpdateCommand(BaseCommand):
                 dst_core_init = dst_core / "__init__.py"
                 if src_core_init.exists():
                     shutil.copy2(src_core_init, dst_core_init)
-                    self.console.print("[dim]  ✓ Updated tinytorch/core/__init__.py[/dim]")
+                    self.console.print("[dim]  ✓ Updated trentorch/core/__init__.py[/dim]")
 
             return True
         except Exception as e:
-            self.console.print(f"[yellow]  ⚠ Could not update tinytorch package: {e}[/yellow]")
+            self.console.print(f"[yellow]  ⚠ Could not update trentorch package: {e}[/yellow]")
             return False
 
     def _run_update(self) -> bool:
@@ -291,7 +288,7 @@ class UpdateCommand(BaseCommand):
 
         1. Download latest to temp directory
         2. Copy updateable directories/files
-        3. Special handling for tinytorch/ package
+        3. Special handling for trentorch/ package
         4. Reinstall pip package
         """
         project_root = self.config.project_root
@@ -307,7 +304,7 @@ class UpdateCommand(BaseCommand):
             if not self._download_latest(temp_path):
                 return False
 
-            # Source is the downloaded tinytorch/ subdirectory
+            # Source is the downloaded TrenTorch_CLI/ subdirectory
             src_root = temp_path / "repo" / self.SPARSE_PATH
 
             if not src_root.exists():
@@ -331,10 +328,10 @@ class UpdateCommand(BaseCommand):
                 if not self._update_file(src_file, dst_file, file_name):
                     success = False
 
-            # Step 4: Special handling for tinytorch/ package
-            src_pkg = src_root / "tinytorch"
-            dst_pkg = project_root / "tinytorch"
-            if not self._update_tinytorch_package(src_pkg, dst_pkg):
+            # Step 4: Special handling for trentorch/ package
+            src_pkg = src_root / "data" / "trentorch"
+            dst_pkg = project_root / "data" / "trentorch"
+            if not self._update_trentorch_package(src_pkg, dst_pkg):
                 success = False
 
         return success
@@ -344,7 +341,7 @@ class UpdateCommand(BaseCommand):
         from rich.panel import Panel
 
         self.console.print()
-        self.console.print("[bold]🔄 Tiny🔥Torch Update[/bold]")
+        self.console.print("[bold]🔄 Tren🔥Torch Update[/bold]")
         self.console.print()
 
         # Get current version
@@ -399,8 +396,8 @@ class UpdateCommand(BaseCommand):
             self.console.print()
             self.console.print(
                 Panel(
-                    "[bold]This will update TinyTorch while preserving your work.[/bold]\n\n"
-                    "[green]Preserved:[/green] data/modules/, tinytorch/core/, progress\n"
+                    "[bold]This will update TrenTorch while preserving your work.[/bold]\n\n"
+                    "[green]Preserved:[/green] data/modules/, trentorch/core/, progress\n"
                     "[yellow]Updated:[/yellow] src/, tests/, data/milestones/",
                     title="Warning",
                     border_style="yellow",
@@ -422,7 +419,7 @@ class UpdateCommand(BaseCommand):
             self.console.print()
             self.console.print(
                 Panel(
-                    f"[green]✅ TinyTorch updated successfully[/green]\n\n"
+                    f"[green]✅ TrenTorch updated successfully[/green]\n\n"
                     f"Now at version: [cyan]v{latest_version}[/cyan]\n\n"
                     f"[dim]Your work in data/modules/ was preserved.[/dim]",
                     border_style="green",
