@@ -7,9 +7,6 @@ ensure students can actually use TrenTorch.
 
 Usage:
     pytest tests/environment/test_setup_validation.py -v
-
-    Or via TREN:
-    tren system health
 """
 
 import subprocess
@@ -414,7 +411,8 @@ def run_all_validation_tests():
     """
     Run all validation tests and provide a summary.
 
-    This is called by `tren system health` to ensure
+    Called when this file is run directly
+    (`python tests/environment/test_setup_validation.py`) to ensure
     the environment is correctly configured.
     """
     import pytest
@@ -433,7 +431,7 @@ def run_all_validation_tests():
     else:
         print("\n" + "=" * 70)
         print("❌ Some validation tests failed")
-        print("🔧 Please fix the issues above and run: tren system health")
+        print("🔧 Please fix the issues above and run: pytest tests/environment/test_setup_validation.py -v")
         print("=" * 70)
 
     return exit_code
