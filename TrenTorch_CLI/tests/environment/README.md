@@ -7,9 +7,6 @@ Comprehensive tests to ensure TrenTorch environment is correctly configured.
 ```bash
 # Quick health check
 tren system health
-
-# Verbose output for debugging
-tren system health --verbose
 ```
 
 **Use when**:

@@ -10,9 +10,6 @@ This discovers ALL requirements files and validates every package.
 
 Usage:
     pytest tests/environment/test_all_requirements.py -v
-
-    Or via TREN:
-    tren system health --verify-all
 """
 
 import re
