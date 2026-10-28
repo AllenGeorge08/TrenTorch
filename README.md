@@ -226,7 +226,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>Catches bugs, builds solutions and ships products</sub>
         <br />
-        <sub>Issues: 14 &middot; PRs: 37</sub>
+        <sub>Issues: 14 &middot; PRs: 66</sub>
       </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/aadityansha06"><img src="https://avatars.githubusercontent.com/aadityansha06?v=4" class="contributor-avatar" width="80px;" alt="Aadityansha"/></a>
@@ -248,7 +248,7 @@ The maintainers. Counts are recomputed whenever a PR merges, from real issue/PR 
         <br />
         <sub>IIT Guwahati. Shows up, ships, moves on to the next thing.</sub>
         <br />
-        <sub>Issues: 6 &middot; PRs: 55</sub>
+        <sub>Issues: 6 &middot; PRs: 58</sub>
       </td>
     </tr>
   </tbody>
@@ -282,7 +282,7 @@ Everyone else who has had a PR merged, or is credited as a `Co-authored-by:` on 
         <br />
         <sub>Spots bugs, corrects them and contributes</sub>
         <br />
-        <sub>Issues: 2 &middot; PRs: 3</sub>
+        <sub>Issues: 2 &middot; PRs: 4</sub>
       </td>
       <td align="center" valign="top" width="25.0%">
         <a href="https://github.com/bernalalexis-try"><img src="https://avatars.githubusercontent.com/bernalalexis-try?v=4" class="contributor-avatar" width="80px;" alt="bernalalexis-try"/></a>
